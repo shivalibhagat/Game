@@ -1,3 +1,24 @@
+/*
+ * GameOfLife.java contains:
+ * input() - takes in coordinates and create a 20x20 grid all cells initially 0
+ * 			 call the generateGrid(), 
+ * 			 passing x and y coordinates
+ * generateGrid() - receive coordinates and change dead (0) status to alive (1),
+ * 					call display()
+ * display() - just show the grid and status of all cells
+ * nextStep() - ask user to input either n(next gen) or e(exit), case insensitive
+ * 				call nextGeneration()
+ * nextGeneration() - check status of 8 neighbors of intended cell
+ * 
+ * 
+ * Game Rules:
+ * 	1. live cell with 2 or 3 live neighbors remain alive
+ * 	2. live cell with <2 or >3 live neighbors die
+ * 	3. dead cell with 3 live neighbors become alive
+ * 
+ */
+
+
 import java.util.Scanner;
 
 public class GameOfLife {
@@ -25,6 +46,16 @@ void input()
 	
 	 input=new int[10][10];
 	 int x,y;
+	 x=scan.nextInt();
+	 y=scan.nextInt();
+	 while((x!=-1)&& (y!= -1)){		 
+		 input[noOfInput][0]=x;
+		 input[noOfInput][1]=y;
+		 x=scan.nextInt();
+		 y=scan.nextInt();
+		 noOfInput++;
+	 }
+	 /*
 	 do{
 	 x=scan.nextInt();
 	 y=scan.nextInt();
@@ -36,11 +67,37 @@ void input()
 	 }
 		}while((x!=-1)&& (y!= -1));
 	//noOfInput--;
+	 */
+	 //fill grid
+	 fillGrid(noOfInput);
 	
 }
-void fillGrid()
+//ask user if next gen or stop
+public void nextStep(){
+	Scanner stdin = new Scanner(System.in);
+	
+	System.out.println("N=Next Generation E=Exit: ");
+	String text = stdin.nextLine();
+	char txt = text.charAt(0);
+	switch(txt){
+	case 'N':
+		nextGeneration();
+		break;
+	case 'n':
+		nextGeneration();
+		break;
+	case 'E':
+		System.exit(0);
+	case 'e':
+		System.exit(0);;
+	default:
+		nextStep();
+	}
+}
+
+void fillGrid(int n)
 {
-	for(int x=0;x<noOfInput;x++)
+	for(int x=0;x<n;x++)
 	{
 			grid[input[x][0]][input[x][1]]=1;	
 			
